@@ -1,0 +1,104 @@
+## 문제
+
+문자열 S가 주어졌을 때, 이 문자열에서 단어만 뒤집으려고 한다.
+
+먼저, 문자열 S는 아래와과 같은 규칙을 지킨다.
+
+1. 알파벳 소문자('`a`'-'`z`'), 숫자('`0`'-'`9`'), 공백('` `'), 특수 문자('`<`', '`>`')로만 이루어져 있다.
+2. 문자열의 시작과 끝은 공백이 아니다.
+3. '`<`'와 '`>`'가 문자열에 있는 경우 번갈아가면서 등장하며, '`<`'이 먼저 등장한다. 또, 두 문자의 개수는 같다.
+
+태그는 '`<`'로 시작해서 '`>`'로 끝나는 길이가 3 이상인 부분 문자열이고, '`<`'와 '`>`' 사이에는 알파벳 소문자와 공백만 있다. 단어는 알파벳 소문자와 숫자로 이루어진 부분 문자열이고, 연속하는 두 단어는 공백 하나로 구분한다. 태그는 단어가 아니며, 태그와 단어 사이에는 공백이 없다.
+
+
+
+## 입력
+
+첫째 줄에 문자열 S가 주어진다. S의 길이는 100,000 이하이다.
+
+
+
+## 출력
+
+첫째 줄에 문자열 S의 단어를 뒤집어서 출력한다.
+
+
+
+## CODE
+
+규칙을 지키면서 생각해야 할 것은 '<' 과 '>' 사이의 문자는 태그로서 뒤집어지지않는다는 게 가장 중요점인것 같습니다.
+
+스택을 이용해서 값을 받아서 뒤집어 주는 역할에 사용하였습니다.
+
+그렇기 때문에 '<'를 만났을경우 그 전에 Stack에 들어있는 값들을 pop 을해주고 check을 true로 바꿔서 그 다음 값들이 ' < ' 안쪽의 값이라는 것을 체크하고 '>' 가 나올 경우 check 를 false 로 바꿔줍니다. 공백의 경우에는 공백이 나올시 스택에 저장된 값을들 pop을 해서 뒤집어 줍니다.
+
+check 가 false 일시에는 스택에 값을 저장
+
+check 가 true 일시 그대로 값을 저장
+
+다돌고 난후 Stack에 남아있는 값을 저장 하여 출력합니다.
+
+```java
+package Back_3;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import java.util.Stack;
+public class st_17413 {
+	public static void main(String[] args)throws IOException{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		String S = br.readLine();
+		
+		Stack<Character> s = new Stack<>();
+		
+		boolean check = false;
+		StringBuilder sb = new StringBuilder();
+		
+		
+		for(char ch : S.toCharArray())
+		{
+			if(ch == '<')
+			{
+				check = true;
+				while(!s.isEmpty())
+				{
+					sb.append(s.pop());	
+				}
+				sb.append(ch);
+				
+			}else if(ch =='>')
+			{
+				check = false;
+				sb.append(ch);
+			}else if(ch == ' ' )
+			{
+				while(!s.isEmpty())
+				{
+					sb.append(s.pop());
+				}
+				sb.append(" ");
+				
+			}else {
+				if(check == false)
+				{
+					s.push(ch);
+				}else
+				{
+					sb.append(ch);
+				}
+			}
+		}
+		while(!s.isEmpty())
+		{
+			sb.append(s.pop());
+		}
+		
+		System.out.println(sb);
+	}
+}
+
+```
+
