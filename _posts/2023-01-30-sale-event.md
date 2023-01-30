@@ -21,6 +21,9 @@ https://school.programmers.co.kr/learn/courses/30/lessons/131127
 
 연속 10일동안 필요한 물건을 가져올 경우 원하는 물건의 개수가 일치하는지 체크해서 일치할경우 answer+=1을 해주고 아닐경우 flag가 false가 되면서 넘어가게 됩니다.
 
+## 구현알고리즘
+
+HashMap
 
 
 ## 코드
